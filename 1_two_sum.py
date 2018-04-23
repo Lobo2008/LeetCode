@@ -1,6 +1,10 @@
 class Solution(object):
-    # @return a tuple, (index1, index2)
     def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
         dict = {}
         for i in range(len(nums)):
             x = nums[i]
