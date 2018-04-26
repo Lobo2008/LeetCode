@@ -18,3 +18,21 @@ target = 9
 print (nums)
 res = Solution.twoSum(1, nums, target)                   
 print (res)
+
+"""another solution:leetcode.com/problems/two-sum/discuss/17/Here-is-a-Python-solution-in-O(n)-time/363
+
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        dic = {}
+        for i, num in enumerate(nums):
+            if num in dic:
+                return [dic[num], i]
+            else:
+                dic[target - num] = i
+
+"""
