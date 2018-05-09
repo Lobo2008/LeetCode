@@ -58,11 +58,20 @@ class Solution(object):
         return max(l_sum,x_sum,r_sum)
 
     """
-    动态规划解法
+    动态规划解法:
+    res[i]为从x位开始到第i位的最大的和：
+    这个最大的和
+        要么等于res[i-1] + nums[i] 即从x到第i-1位的和加上当前第i位的和
+        要么等于当前 第i位的值，
+        试想，如果第x~i-1的和加上当前第i位的和<第i位的值，
+    
+
     """
     def maxSubArray_DP(self,nums):
+
         for i in range(1, len(nums)):
             nums[i] = max(nums[i-1] + nums[i], nums[i])
+        print(nums)
         return max(nums)
 
 
@@ -70,8 +79,8 @@ class Solution(object):
 nums = [-2,1,-3,4,-1,2,1,-5,4] #9
 # nums=[-3,100,-1]
 # nums = [-1,-2,-3,100]
-nums = [1, -2, 3, 10, -4, 7, 2, -5]
-nums = [0,-2,0] # 0
+# nums = [1, -2, 3, 10, -4, 7, 2, -5]
+# nums = [0,-2,0] # 0
 # low = 0
 # high = len(nums)-1 
 # mid = (low+high+1)//2 #4.5->4
