@@ -29,7 +29,39 @@ class Solution(object):
                 return index
         return len(nums)
             
-nums = [1,3,5,6]; target = 5
 
-res = Solution.searchInsert(1,nums,target)
-print(res)
+
+    def searchInsert_binary_search(self, nums, target):
+        low = 0
+        high = len(nums)
+        if target > nums[high-1]:return high
+        while low <= high:
+            mid = (low + high) // 2
+            # print('low=',low,',mid=',mid,',high=',high)
+            if target == nums[mid] :
+                # print('~~~~1')
+                return mid
+            elif target > nums[mid]  :
+                # print('~~~~2')
+                low = mid + 1
+                index = mid + 1 
+                flag =  'right'
+            else:# target < nums[mid] 
+                # print('~~~~3')
+                high = mid - 1
+                index = mid  - 1
+                flag = 'left'
+        # print(low,mid,high,'->',flag)
+        return low
+
+
+
+so = Solution()
+nums = [1,3,5,6,7,9]; target = 3
+
+
+# print(so.searchInsert_binary_search(nums,target))
+
+for i in range(0,11):
+    rs = so.searchInsert_binary_search(nums,i)
+    print(i,'=>',rs)
