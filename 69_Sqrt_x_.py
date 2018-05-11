@@ -39,7 +39,40 @@ class Solution(object):
             mid = (start + end  )//2 
         return mid
 
-x = 9
+    def mySqrt2(self, x):
+        if x < 2:return x
+        low ,high = 0,x
+        while low <= high:
+            mid = (low + high) // 2
+            print(low,mid,high)
+            r = mid * mid
+            if r == x:
+                return mid
+            elif r > x:
+                print('<-')
+                high = mid - 1
+                
+            else:
+                print('->')
+                low = mid + 1
+                
+        return low - 1
+
+    def mySqrt3(self, x):
+        if x <= 1:
+            return x
+        s, e = 0, x
+        while s <= e:
+            mid = (s+e)/2
+            r = mid * mid
+            if r > x:
+                e = mid - 1
+            elif r == x:
+                return mid
+            else:
+                s = mid + 1
+        return s - 1
+
+x = 26
 so = Solution()
-res = so.mySqrt(x)
-print(res)
+print(so.mySqrt2(x))
