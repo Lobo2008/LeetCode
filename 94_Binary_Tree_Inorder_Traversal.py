@@ -76,7 +76,7 @@ class Solution(object):
         rs = []
         while root or stack: #栈为空或者已经到叶子的时候停止循环
             if root:#还有左son，就继续往左走
-                stack.append(root)
+                stack.append(root)##易错点，是root不是root.val
                 root = root.left
             else:#没有左son的时候，说明左子树已经遍历完成，然后获取当前的根，再遍历右子树
                 root = stack.pop()
