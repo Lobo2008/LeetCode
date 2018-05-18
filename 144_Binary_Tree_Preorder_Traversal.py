@@ -54,13 +54,13 @@ class Solution(object):
          6     7  
 
 
-        1
-      /   \
-     2     3
-     1)root=1 存在，rs=[1], root=left=2
-     2)root=2存在， rs=[1,2], root=left=null
-     3)root=null不存在，root=pop=2
-     4)root=2存在，
+     1)root=1 存在，rs=[1],     stack=[1],    root=left=2
+     2)root=2 存在，rs=[1,2],   stack=[1,2]     root=left=4
+     3)root=4 存在，rs=[1,2,4], stack=[1,2,4]   root =left=null
+     4)root=null不存在，stack弹出4->stack=[1,2]  相当于返回dad，root=4,然后访问右son，right=null
+     5)root=null不存在，stack弹出2->stack=[1]    相当于返回dad，root=2，然后访问右son，right=5
+     6)root=5 存在，rs=[1,2,4,5] stack=[1,5]  root=left=null
+     7)......
 """
         rs = []
         stack = []
