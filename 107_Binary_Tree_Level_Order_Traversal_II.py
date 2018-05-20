@@ -43,8 +43,11 @@ class Solution(object):
         while thisLevel:
             levelrs = []
             nextLevel = []
-            for node in thisLevel:
-                levelrs.append(node.val)
+            for node in thisLevel:#遍历本层的所有节点
+                levelrs.append(node.val)#先把根节点存入当前结果集
+                """
+                如果当前节点有左右儿子，则存入下一次要遍历的结果集中
+                """
                 if node.left:
                     nextLevel.append(node.left)
                 if node.right:

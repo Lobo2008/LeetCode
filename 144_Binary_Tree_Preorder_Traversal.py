@@ -92,15 +92,7 @@ class Solution(object):
         
 so = Solution()
 
-"""
-
-        1
-      /   \
-     2     3
-    / \   / \
-   4   5 6   7
-
-"""
+1
 
 l1 = TreeNode(1)
 l2 = TreeNode(2)

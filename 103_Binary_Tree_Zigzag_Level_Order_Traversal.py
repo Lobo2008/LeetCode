@@ -51,13 +51,13 @@ class Solution(object):
         while thisLevel:
             levelrs = []
             nextLevel = []
-            for node in thisLevel:
-                levelrs.append(node.val)
-                if node.left:
+            for node in thisLevel:#对每个节点进行操作，当前节点放入本层结果集中，左右儿子放入下一层结果集
+                levelrs.append(node.val)#把当前节点加入本层的结果集当中
+                if node.left:#有leftson，则放入下一层待遍历的结果集
                     nextLevel.append(node.left)
-                if node.right:
+                if node.right:#有rightson，则放入下一层待遍历的结果集
                     nextLevel.append(node.right)
-            if even_odd % 2 == 0:
+            if even_odd % 2 == 0:#每一层的顺序不一样，用奇偶性进行控制
                 levelrs.reverse()
             even_odd += 1
             rs.append(levelrs)
