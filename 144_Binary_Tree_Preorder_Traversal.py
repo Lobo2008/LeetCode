@@ -113,3 +113,43 @@ l3.right = l7
 
 print(so.preorderTraversal(root))
 # print(so.preorderTraversal_recursive(root))
+
+
+"""
+             1
+           /   \
+          2     2
+         / \   /  \
+        3   4 4    3
+       / \        / \
+      5  6       6   5
+
+      pre: [1,2,3,5,6,4,2,4,3,6,5]
+
+ """
+
+l1 = TreeNode(1)
+
+l21 = TreeNode(2)
+l22 = TreeNode(2)
+
+l31 = TreeNode(3)
+l32 = TreeNode(4)
+l33 = TreeNode(4)
+l34 = TreeNode(3)
+
+l41 = TreeNode(5)
+l42 = TreeNode(6)
+l43 = TreeNode(6)
+l44 = TreeNode(5)
+
+root = l1
+
+l1.left = l21; l1.right = l22
+
+l21.left = l31; l21.right = l32
+l22.left = l33; l22.right = l34
+
+l31.left = l41; l31.right = l42
+l34.left = l43; l34.right = l44
+print(so.preorderTraversal(root))
