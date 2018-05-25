@@ -52,15 +52,12 @@ class Solution(object):
             return 0
         levelnum = 0
         level = [root]
-        isStop = False
         while level:
             levelnum += 1
             nextlevel = []
-            t = []
             for node in level:
                 if not node.left and not node.right:#root没有son，直接返回当前层数
-                    return levelnum
-                    
+                    return levelnum           
                 """
                 这里用if if而不用if else的原因：
                       3
@@ -68,7 +65,7 @@ class Solution(object):
                     9  20
                        /  \
                       15   7
-                如果用if node.right: append(right)
+                如果用if: node.right: append(right)
                     else:           append(left)
                 那就会走右边的这一条(3-20),而最短的应该是走3-9这一条
                 """

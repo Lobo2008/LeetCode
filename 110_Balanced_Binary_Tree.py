@@ -101,9 +101,15 @@ class Solution(object):
             所以rigt=1<0不成立，继续往下走
             abs(3,1)=2>1成立，所以返回-1 
             【所以root=1时返回-1】
-        返回-1，则说明不平衡，False                          
+        返回-1，则说明不平衡，False    
+             1
+           /   \
+          2     3
+         / \   / \
+        4   5  
+       /
+      8                       
         """
-
     def height(self, root):
         if root is None:
             return 0
