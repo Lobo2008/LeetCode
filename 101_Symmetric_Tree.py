@@ -255,3 +255,31 @@ print(so.isSymmetric_iterative(root))
 
 
 
+    def isSymmetric_iterative(self, root):
+        """
+        空树，或者只有一个根的树，则对称
+        """
+        if not root or (not root.left and not root.right):
+            return True
+        if (not root.left and root.right) or (root.left and not root.right):
+            return False
+        stack1 = [root.left]#不一定存在root.left，所以在这之前要确定root.left 和root.right
+        stack2 = [root.right]
+        while stack1 and stack2:
+            node1 = stack1.pop()
+            node2 = stack2.pop()
+            if node1.val != node2.val:#节点值不相等，则不对称，直接返回
+                return False
+            if (not node1.left and node2.right) or (node1.left and \
+                not node2.right):#左根没有左儿子但右根有右儿子 或者  左根有左儿子但右根没有右儿子
+                return False
+            if (not node1.right and node2.left) or (node1.right and \
+                not node2.left):#左根没有右儿子但右根有左儿子 或者  左根有右儿子但右根没有左儿子
+                return False
+            if node1.left and node2.right:
+                stack1.append(node1.left)
+                stack2.append(node2.right)
+            if node1.right and node2.left:
+                stack1.append(node1.right)
+                stack2.append(node2.left)
+        return True
