@@ -163,4 +163,3 @@ t2.left = t5; t2.right = t6
 
 # print(so.sumNumbers(root1))
 print(so.sumNumbers2(root2))
-print(so.traversal_all_the_path(root2))
