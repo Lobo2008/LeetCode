@@ -149,3 +149,8 @@ l31.left = l41; l31.right = l42; l33.left = l43; l33.right = l44
 sum = 22
 print(so.pathSum(root,sum))
 print(so.pathSum2(root,sum))
+
+
+
+
+

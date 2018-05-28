@@ -81,7 +81,8 @@ class Solution(object):
             return 0
         if not root.left and not root.right:
             return sum*10 + root.val
-        return self.helper(root.left,sum*10+ root.val) + self.helper(root.right,sum*10 + root.val)
+        return self.helper(root.left,sum*10+ root.val) + \
+                self.helper(root.right,sum*10 + root.val)
         """       
             4
            / \
@@ -163,3 +164,8 @@ t2.left = t5; t2.right = t6
 
 # print(so.sumNumbers(root1))
 print(so.sumNumbers2(root2))
+
+
+
+
+
