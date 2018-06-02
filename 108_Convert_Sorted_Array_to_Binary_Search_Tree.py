@@ -90,6 +90,9 @@ class Solution(object):
         root.left = self.helper(nums,left,mid - 1)
         root.right = self.helper(nums, mid+1, right)
         return root
+    """
+    把上面的left 和right都去了，简化代码
+    """
 
     def sortedArrayToBST2(self, nums):
         l = len(nums)
