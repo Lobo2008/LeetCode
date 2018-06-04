@@ -125,3 +125,4 @@ preorder = [3,9,2,20,15,7]
 inorder = [2,9,3,15,20,7]
 
 print(so.buildTree(preorder, inorder))
+

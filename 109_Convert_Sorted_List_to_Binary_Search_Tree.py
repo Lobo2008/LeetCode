@@ -37,6 +37,7 @@ class Solution(object):
         :rtype: TreeNode
         """
         """
+        给定一个升序链表，返回平衡BST
         有两种方法：
             1.把链表存入数组，然后跟108一样
             2.快慢指针
@@ -47,7 +48,6 @@ class Solution(object):
             while head:
                 arr.append(head.val)
                 head = head.next
-        # print(arr)
         return self.helper(arr)
     def helper(self, nums):
         l = len(nums)

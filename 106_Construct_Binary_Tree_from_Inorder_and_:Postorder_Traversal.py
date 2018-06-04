@@ -32,6 +32,8 @@ class Solution(object):
         :rtype: TreeNode
         """
         """
+        ref:https://www.cnblogs.com/zuoyuan/p/3720138.html
+        
         给一个中序遍历的list和一个后序遍历的list，将其恢复成二叉树
         中序遍历preorder： 左-root-右
         后序遍历inorder：  左-右-root
