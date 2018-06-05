@@ -61,6 +61,7 @@ class Solution(object):
         return root
 
     """
+    -10 -> -3 -> 0
     第二种方法，快慢指针，假设只有三个：[-10, -3, 0]
     1)head=-10,tail=None
         if 1 -> x
@@ -96,7 +97,7 @@ class Solution(object):
     第一次                          mid         fast
     快慢指针初始都在第一个点，假设成都是左son，
         然后慢指针作为root，每次往后走一位
-        快指针比慢指针夺走一位，作为右son
+        快指针比慢指针多走一位，作为右son
         如上图所示
     另外，第一个if，说明右son不存在，比如最开始
          第二个if，说明找到左son，因为左son的next就是root

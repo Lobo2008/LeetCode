@@ -116,6 +116,14 @@ class Solution(object):
         node.right = self.buildTree(preorder, inorder[index+1:])
         return node
 
+    def buildTree2(self, preorder, inorder):
+        if not preorder or not inorder:
+            return None
+        node = TreeNode(preorder.pop(0))
+        index = inorder.index(node.val)
+        node.left = self.buildTree2(preorder[:index], inorder[:index])
+        node.right = self.buildTree2(preorder[index:], inorder[index+1:])
+        return node
     """
     [3,9,20,15,7]
     """
@@ -124,5 +132,6 @@ so = Solution()
 preorder = [3,9,2,20,15,7]
 inorder = [2,9,3,15,20,7]
 
-print(so.buildTree(preorder, inorder))
+# print(so.buildTree(preorder, inorder))
+print(so.buildTree2(preorder, inorder))
 
