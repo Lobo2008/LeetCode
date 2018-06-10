@@ -54,63 +54,30 @@ class Solution(object):
             1   5
             这种树，虽然满足了root的左son小于root，但左son的右son大于root，所以是错的 
 
+        回忆一下，对一棵BST，对其进行中序遍历（左-root-右），会得到一个升序排列的数组
+        所以，利用这个思路进行处理，如果这棵树中序遍历的结果不是一个升序数组，就返回false：
         """
         if not root:
                 return True
-        if root:
-                if root.left:
-                        if root.left.val >= root.val:return False
-
-                        if root.left.left:
-                                if root.left.left.val >= root.left.val or \
-                                        root.left.left.val >= root.val: return False
-
-                        
-                        if root.left.right:
-                                if root.left.right <= root.left.val or \
-                                        root.left.right >= root.val: return False
-                                
-                if root.right:
-                        if root.right.val <= root.val:return False
-                        
-                        if root.right.left:
-                                if root.right.left.val >= root.right.val or \
-                                        root.right.left.val <= root.val: return False
-                                
-                        if root.right.right:
-                                if root.right.right.val <= root.right.val or \
-                                        root.right.right.val <=root.val: return False
-                return self.isValidBST(root.left) and self.isValidBST(root.right)
+        stack=[]
+        nowMax = -10**10
+        while root or stack:
+                if root:
+                        stack.append(root)
+                        root = root.left
+                else:
+                        """
+                        因为是升序排列的，所以第n个数应该比n-1个数大，
+                        第n个数就是pop出来的元素，n-1就是当前最大值
+                        如果不满足这个条件，说明不是升序排列，就直接返回，不用继续下去
+                        """
+                        root = stack.pop()
+                        if root.val <= nowMax:
+                                return False
+                        nowMax = root.val
+                        root = root.right
         return True
-
-
-
-                #         if root.left.val >= root.val:
-                #                 return False
-                #         if root.left.left and root.left.left.val >= root.left.val or \
-                #                 root.left.left.val >= root.val:
-                #                 return False
-                #         if root.left.right and root.left.right.val <= root.left.val or \
-                #                 root.left.right >= root.val:
-                #                 return False
-                # if root.right:
-                #         if root.right.val <= root.val:
-                #                 return False
-
-                #         if root.right.right and root.right.right.val <= root.right.val or \
-                #                 root.right.__le__
-
-
-
-#     def helper(self, root,daddy):
-#         if daddy is None:
-#         if root:
-#                 if root.left and (root.val <= root.left.val or root.left.val >= daddy):
-#                         return False
-#                 if root.right and (root.val >= root.right.val or root.right.val):
-#                         return False
-#                 return self.isValidBST(root.left) and self.isValidBST(root.right)
-#         return True
+                
         
 
 """
