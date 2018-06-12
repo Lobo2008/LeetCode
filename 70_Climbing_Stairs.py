@@ -53,8 +53,7 @@ class Solution(object):
         递归求法1
         """
         num2 = n//2 +1
-        count = 0
-        
+        count = 0    
         for i in range(num2):
             times = n-i
             count += self.C(times,i)
@@ -94,33 +93,32 @@ class Solution(object):
             rs=  help(3) + hepl(2)
                     3    +  2 ，注意help(3)和help(2)都包含了很多种情况
                 help(3)如上，  help(2)如上上
-        但这里有个问题，help(4)和help(3)都重复计算看help(2)，所以效率不高
+        但这里有个问题，help(4)和help(3)都重复计算看help(2)，所以效率不高,会超时！
         可以采用DP方法
 
         """
-        rs = [0,1,2]
-        if n <=1:
+        rs = [1,1,2]
+        if n <=2:
             return rs[n]
-        return self.climbStairs_recussive2(n-1) + self.climbStairs_recussive2(n-2)
+        return self.climbStairs_recussive2(n-1) +\
+                 self.climbStairs_recussive2(n-2)
 
     def climbStairs_dp(self, n):
         """
         dp方法，在climbStairs_recussive2中可以看到 help(x)可能会被重复计算，
         所以，为了避免此问题，应该把计算结果存储起来，用到的时候直接取就ojbk了
         """
-        rs = [0,1,2]
-        if n <=1:
+        rs = [1,1,2]
+        if n <= 2:
             return rs[n]
         for i in range(3,n+1):
-            rs 
+            rs.append(rs[i-1] + rs[i-2])
+        return rs[n] 
 
 
-n = 10       
+n = 7    
 so = Solution()
 
-res = so.climbStairs(n)
-print(res)
-
-# print(so.factorial(0))
-
-# print(so.C(0,6))
+print(so.climbStairs(n))
+print(so.climbStairs_recussive2(n))
+print(so.climbStairs_dp(n))
