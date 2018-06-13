@@ -69,7 +69,8 @@ class Solution(object):
             return rs[n]
         sumi = 0
         for i in range(n):
-            sumi += self.numTrees(i)*self.numTrees(n-i-1)
+            sumi += self.numTrees(i)* \
+                    self.numTrees(n-i-1)
         return sumi
     """
     上面的代码超时了，因为有重复计算，0 3的时候，算了一遍h(0~2)，3 0的时候，又把h(0~2)算了一遍
