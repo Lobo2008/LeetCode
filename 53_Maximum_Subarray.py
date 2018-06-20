@@ -59,12 +59,22 @@ class Solution(object):
 
     """
     动态规划解法:
-    res[i]为从x位开始到第i位的最大的和：
-    这个最大的和
-        要么等于res[i-1] + nums[i] 即从x到第i-1位的和加上当前第i位的和
-        要么等于当前 第i位的值，
-        试想，如果第x~i-1的和加上当前第i位的和<第i位的值，
-    
+
+    rs[n-1]是前n-1个数的最大的和，k是第n项的值
+    比如[ 1, -3, 4, -1, 2, 1, -5, 4]   下标从0开始
+
+    rs[1]=-2，因为前2项的最大和是 1+(-3)=-2
+    rs[2]=? , 需要考虑1,-3,4
+        前两项的最大和是第0项+第1项，等于-3
+        再加一个4，等于1
+        但是，第3箱，num[2]=4是大于1的，所以前3箱的最大和，用第3项到第3项的和代替就可以了，也就是4
+
+        所以，关系式是：
+            dp[n]=  dp[n-1]+nums[n]  
+                    dp[n]
+
+    [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+
 
     """
     def maxSubArray_DP(self,nums):
@@ -75,7 +85,7 @@ class Solution(object):
         return max(nums)
 
 
-
+so = Solution()
 nums = [-2,1,-3,4,-1,2,1,-5,4] #9
 # nums=[-3,100,-1]
 # nums = [-1,-2,-3,100]
@@ -93,6 +103,6 @@ nums = [-2,1,-3,4,-1,2,1,-5,4] #9
 
 print('~~~~~ori:',nums)
 # res =Solution.maxSubArray(1,nums)
-res = Solution.maxSubArray_DP(1,nums)
-print('res=',res)
+print(so.maxSubArray_DP(nums))
+
 
