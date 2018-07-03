@@ -43,6 +43,9 @@ class Solution:
         最后，剩下的O就是被X包围的O，换成X就可以，然后再把D换成原来的O
 
         也就是，只需要处理第1行、最后一行以及第一列和最后一列就可以
+
+
+        注意，找到一个未被包围的O1时，替换为D，然后检查他的上下左右是否有O2，如果有的话，替换位D，然后还要再次检查O2的上下左右
         """
         def bfs(row, col):
             if board[row][col] != 'O':
@@ -58,22 +61,28 @@ class Solution:
             #右：row,col+1
             if row-1 in range(len(board)) and board[row-1][col] == 'O':
                 board[row-1][col] = 'D'
+                neighbor(row-1, col)
             if row+1 in range(len(board)) and board[row+1][col] == 'O':
                 board[row+1][col] = 'D'
+                neighbor(row+1, col)
             if col-1 in range(len(board[0])) and board[row][col-1] == 'O':
                 board[row][col-1] = 'D'
+                neighbor(row, col-1)
             if col+1 in range(len(board[0])) and board[row][col+1] == 'O':
                 board[row][col+1] = 'D'
+                neighbor(row, col+1)
         row = len(board)
+        if row == 0:
+            return
         col = len(board[0])
         #遍历第一行和最后一行
-        for i in range(row):
+        for i in range(col):
             # board[0][i] #第一行
             # board[row-1][i]#最后一行
             bfs(0, i)
             bfs(row-1, i)
             
-        for j in range(col):
+        for j in range(row):
             # board[j][0]#第一列
             # board[j][col-1]#最后一列
             bfs(j, 0)
@@ -93,10 +102,16 @@ class Solution:
         
 so = Solution()
 board = [["X","X","X","X"],["X","O","O","X"],["X","O","O","X"],["X","O","X","X"]]
-
-
+board = [["X","O","X","O","X","O"],["O","X","O","X","O","X"],["X","O","X","O","X","O"],["O","X","O","X","O","X"]]
+"""
+['X', 'O', 'X', 'O', 'X', 'O']
+['O', 'X', 'O', 'X', 'O', 'X']
+['X', 'O', 'X', 'O', 'X', 'O']
+['O', 'X', 'O', 'X', 'O', 'X']
+"""
 res = so.solve(board)
-
+# print(len(board))
+# print(len(board[0]))
 for i in range(len(res)):
     print(res[i])
     # for j in range(len(board[0])):
