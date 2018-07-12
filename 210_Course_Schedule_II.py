@@ -42,65 +42,68 @@ class Solution(object):
             最左边的一层[3]
         同一层的多个节点，在同一层中可以以任意顺序出现，所以，所有的情况就是:
         [0]->[1,2]->[3]
-            第二次的[1.2]可互换，则有[0]->[2,1]->[3]工三种
+            第二次的[1.2]可互换，则有[0]->[2,1]->[3]共三种
 
+        注意注意，只需要返回一个正确的结果即可，无需返回所有情况
         """
         from collections import defaultdict
-        graph = defaultdict(lambda: [], {})
         levels = defaultdict(lambda: [], {})
-        in_degree = {node:0 for node in range(numCourses)}
+        out_degree = {i:0 for i in range(numCourses)}
+        for course, pre in prerequisites:
+            out_degree[course] += 1
+            levels[pre].append(course)
+        #levels =  {0: [1, 2], 1: [3], 2: [3]}
+        #out_degree= {0: 0, 1: 1, 2: 1, 3: 2}
+        queue = [i for i in out_degree if out_degree[i]==0] #[0]
+        # print(queue)
+        rs = []
+        while queue:
+            q = queue.pop()
+            rs.append(q)  #rs=[0]
+            #找出与0相连的节点，把出度减一
+            for node in levels[q]:#[1,2]
+                out_degree[node] -= 1
+                if out_degree[node] == 0:#出度减为零的时候，加入队列
+                    queue.append(node)
+        return rs if len(rs) == numCourses else []
+
+
+
+
+
+
+
+    # from collections import *
+    
+    def findOrder_bfs(self, numCourses, prerequisites):  
+        from collections import defaultdict,deque     
+        dic = {i: set() for i in range(numCourses)}
+        neigh = defaultdict(set)
         for course, prereq in prerequisites:
-            graph[course].append(prereq)
-            in_degree[prereq] += 1
-        # print(graph)
-        # print(in_degree)
-        #in_degree={0: 2, 1: 1, 2: 1, 3: 0}
-        """
-        将入度相等的分为一组
-        """
-        max_ind = 0
-        for k in in_degree:
-            if in_degree[k] > max_ind:
-                max_ind = in_degree[k]
-            levels[in_degree[k]].append(k)
-        # levels[2].append(4)
-        # levels[1].append(5)
-        #levels={2: [0], 1: [1, 2], 0: [3]}
-        # levels={2:[1,2],1:[4,5],0:[7,8]}
-        # thislevel = self.permute(levels[max_ind])#[[0,4],[4,0]]
-        # max_ind -= 1
-        
-        thislevel = levels.pop(len(levels)-1)
-        thislevel = self.permute(thislevel)
-        if levels:
-            while levels:
-                rslevel = []
-                nextlevel = levels.pop(len(levels)-1)
-                nextlevel = self.permute(nextlevel)
-                for i in thislevel:
-                    for j in nextlevel:
-                        rslevel.append(i+j)
-            
-                thislevel = rslevel
-            return rslevel
-        else:
-            return thislevel     
-           
-    def permute(self, num):
-        if len(num) == 0: return []
-        if len(num) == 1: return [num]
-        res = []
-        for i in range(len(num)):
-            for j in self.permute(num[:i] + num[i+1:]):
-                res.append([num[i]] + j)
-        return res
-
-
-            
-
+            dic[course].add(prereq)
+            neigh[prereq].add(course)
+        #dic = {0: set(), 1: {0}, 2: {0}, 3: {1, 2}} 0没有先决，3的先决是1和2
+        #neigh= {0: {1, 2}, 1: {3}, 2: {3}}   0是1和2的先决
+        # print(dic, neigh)
+        queue = deque([i for i in dic if not dic[i]])#将没有先决的节点放入队列  queue=[0]
+        count, res = 0, []
+        while queue:
+            node = queue.popleft()
+            res.append(node)#res=[0]
+            count += 1
+            for i in neigh[node]:  #遍历neigh[0]=[1,2]
+                dic[i].remove(node)#dic[1].remove(0) 遍历指向0的两个节点，并分别把这两个节点中指向0的节点数据删掉，删完以后，把节点放入队列，下次遍历
+                if not dic[i]:
+                    queue.append(i)
+        return res if count == numCourses else []
 
     
 so = Solution()
 numCourses = 4
 prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+# prerequisites = [[]]
+# numCourses = 2
+# prerequisites = [[0,1],[1,0]]
 print(so.findOrder(numCourses, prerequisites))
+print('+++++++')
+# print(so.findOrder_bfs(numCourses, prerequisites))
