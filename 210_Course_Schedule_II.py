@@ -45,6 +45,7 @@ class Solution(object):
             第二次的[1.2]可互换，则有[0]->[2,1]->[3]共三种
 
         注意注意，只需要返回一个正确的结果即可，无需返回所有情况
+        ref:https://leetcode.com/problems/course-schedule-ii/discuss/59321/Python-dfs-bfs-solutions-with-comments.
         """
         from collections import defaultdict
         levels = defaultdict(lambda: [], {})

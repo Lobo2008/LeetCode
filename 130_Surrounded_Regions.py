@@ -61,16 +61,16 @@ class Solution:
             #右：row,col+1
             if row-1 in range(len(board)) and board[row-1][col] == 'O':
                 board[row-1][col] = 'D'
-                neighbor(row-1, col)
+                neighbor(row-1, col)#递归检查
             if row+1 in range(len(board)) and board[row+1][col] == 'O':
                 board[row+1][col] = 'D'
-                neighbor(row+1, col)
+                neighbor(row+1, col)#递归检查
             if col-1 in range(len(board[0])) and board[row][col-1] == 'O':
                 board[row][col-1] = 'D'
-                neighbor(row, col-1)
+                neighbor(row, col-1)#递归检查
             if col+1 in range(len(board[0])) and board[row][col+1] == 'O':
                 board[row][col+1] = 'D'
-                neighbor(row, col+1)
+                neighbor(row, col+1)#递归检查
         row = len(board)
         if row == 0:
             return
@@ -87,7 +87,7 @@ class Solution:
             # board[j][col-1]#最后一列
             bfs(j, 0)
             bfs(j, col-1)
-
+        #将剩余的O变为，将中介元素替换回O
         for i in range(row):
             for j in range(col):
                 if board[i][j] == 'D':
