@@ -141,11 +141,47 @@ class Solution:
         # return True if cnt == numCourses else False
 
 
+    #ref:https://leetcode.com/problems/course-schedule/discuss/58586/Python-20-lines-DFS-solution-sharing-with-explanation
+    def canFinish_dfs(self, numCourses, prerequisites):
+        from collections import defaultdict
+        graph = defaultdict(lambda:[], {})
+        visited = [0 for x in range(numCourses)]
+        for course ,pre in prerequisites:
+            graph[course].append(pre)
+        def dfs(node):
+            #=-1时，说明节点node已经访问过，则存在环，返回false
+            if visited[node] == -1:
+                return False
+            #标记为已访问过
+            if visited[node] == 1:
+                return True#????
+            #否则，节点node未访问过，做标记，如果不能进入下面neibor的循环的话，说明这个node是最末端的节点
+            visited[node] = -1
+            #然后遍历节点node的相邻节点,this is dfs的关键，遍历node的相邻节点，对于每个相邻的节点，仍然递归的遍历其相邻节点，thats dfs
+            for neignbor in graph[node]:
+                if not dfs(neignbor):
+                    return False
+            #如果node存在先决节点，且其先决节点未访问过、不存在环的话，标记为“已访问”=1
+            visited[node] = 1
+            return True
+        """
+        for graph={3: [2, 1], 2: [0], 1: [0]}
+            node=0时，visited[0]=-1,then visted[0]=1,返回True
+            node=1时，其neibor=[0]，而dfs(0)=visited[0]=1,所以返回True，visited[1]=1
+            node=2时，其neibor=[0], 而dfs(0)=visited[0]=1,所以返回True,visited[2]=1
+            node=3时，其neibor=[1,2] 而dfs(1)=visited[1]=1，所以返回true,visited[3]=1
+                                    而dfs(2)=visited[2]=1，所以返回true,visited[3]=1
+        如果加一个[0,1]，则
+            node=0时，visited[0]=-1,其neibor=[1]，而dfs(1)=visted[1]=-1
+                                                  其neibor=[0],则dfs(0)=visited[0]=-1,返回false
+            即：0的相邻节点是1，1的相邻节点是0，node=0的时候，查找0的邻居是1，然后递归发现1的邻居是0，然后发现0已经标记为-1了，所以存在环，fasle
+        """
+        for node in range(numCourses):
+            if not dfs(node):#如果dfs返回False，则进入if，返回false
+                return False
+        return True
 
-
-                
-
-
+    
 so = Solution()
 
 numCourses = 2
@@ -154,10 +190,14 @@ prerequisites =  [[1,0],[0,1]]
 numCourses = 4
 prerequisites = [[4,3],[4,2],[1,2],[1,3],[2,1]]
 prerequisites = [[4,3],[4,2],[3,1],[2,1]]
-print(so.canFinish(numCourses, prerequisites))
+prerequisites = [[3,2],[3,1],[2,0],[1,0]]
+# print(so.canFinish(numCourses, prerequisites))
 print()
 print()
 print()
+print('-----dfs')
+print(so.canFinish_dfs(numCourses, prerequisites))
+print('-----dfs end')
 """
 ref：https://www.cnblogs.com/zhaojieyu/p/8543136.html
 1）先计算所有节点的入度
