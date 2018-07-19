@@ -23,7 +23,7 @@ Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 class Solution(object):
     def numDecodings(self, s):
         """
-        :type s: str
+        :type s: strz
         :rtype: int
         """
         """
