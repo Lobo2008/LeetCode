@@ -46,56 +46,45 @@ class Solution:
             [3,5]
         ]
 
-        i = 2时，tmprs=[]
-                8-2=6 ,not in num[i:], rs=[2] ,     6 > i
-                6-2=4, not in num[i:], rs=[2,2]     4 > i
-                4-2=2, in  num[i:] rs=[2,2,2,2]        break
-                rs=[[2,2,2,2]]
+        ref:https://blog.csdn.net/u014251967/article/details/53611247
 
-        i = 3时，tmprs=[]
-                8-3 = 5 in num[i:], rs=[3,5] brea
-                rs=[[2,2,2,2],[3,5]]
-        i = 5时,tmps=[]
-                8-5 = 3 not in num[i:] 3 > i不成立 break
-
-
-        8-2-2-2-2 = 0 ok
-         
-        8-3-3-3=-1 x
-
-
-        Input: candidates = [2,3,6,7], target = 7,
-        A solution set is:
-        [
-            [7],
-            [2,2,3]
-        i=2时
-            7-2 = 5 not in nums[i:] 且 5 > i  tmprs=[2]
-            5-2 = 3 in nums[i],break          tmps[2,2,3]
-        i = 3时
-            7-3 = 4 no in 且4 > i
-            4-3 = 1 not in 且 1 > i不成立，返回[]
-
-        可知当 leftnum not in nums[i]且 leftnum > i 的时候回继续减下去
-        知道
-
-        2 3 6 12    12 
+        index=0, path=[],rs=[],tar=8
+            i = 0
+                dfs(0,[2],[],6)     -> index=0,path=[2],rs=[],ta=6
+                    i = 0
+                        dfs(0,[2,2],[],4)   -> index=0,path=[2,2] rs=[] ,tar = 4
+                            i=0
+                                dfs(0,[2,2,2],[],2) -> index=0,path=[2,2,2], tar=2
+                                    i=0 
+                                        dfs(0,[2,2,2,2],rs,0)   ->index=0,path=[2,2,2,2],rs=[],tar=0
+                                            tar==0 -> rs=[2,2,2,2] return开始回溯
+                                    i = 1
+                                        dfs(1,[2,2,2,3],rs,-1)  -> index=0,path=[2,2,2,3] tar=-1
+                                            tar <0,stop 再回溯
+                            i= 1
+                                dfs(1,[2,2,3])...
+        
+        注意终止条件，8-2-2-2-2=0 的时候，满足情况，终止并将路劲加入
+                    8-2-2-2-3=-1的时候，也应该终止，并回到上一次的地方
 
         """
-        def dfs(index, path, rs):
-            lssum = 0
-            for item in path:
-                lssum += item
-            if path not in rs and lssum == target:
+        def dfs(index, path, rs, target):
+            if target == 0:#如果target刚好减到0，则能构成一个路径
                 rs.append(path)
-            for i in range(index, len(candidates)):
-                dfs(i+1,path+[candidates[i]], rs)
+            else:
+                for i in range(index, len(candidates)):
+                    if target < 0:
+                        break
+                    #注意这里的第一个参数是 ，而不是i+1,因为可以重复使用，所以一直减同一个数
+                    dfs(i, path+[candidates[i]], rs, target - candidates[i])
+
         rs = []
-        dfs(0, [], rs)
+        dfs(0, [], rs, target)
         return rs
 
 
 so = Solution()
 
 candidates = [2,3,5]; target = 8
+# candidates = [1,2,3,6] ; target = 6
 print(so.combinationSum(candidates, target))
