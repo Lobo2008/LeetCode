@@ -125,7 +125,7 @@ class Solution(object):
         if root.left:
             self.helper2(root.left, curRs+[root.val],rs)
         if root.right:
-            right = self.helper2(root.right, curRs+[root.val], rs)
+            self.helper2(root.right, curRs+[root.val], rs)
 
 
 

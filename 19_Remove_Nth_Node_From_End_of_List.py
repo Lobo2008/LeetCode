@@ -36,7 +36,7 @@ class Solution:
         两个指针p和q，初始时，第一个指针指向开始 即p=head
                           第二个指针向前n步，（从head开始数1，往后n步），即 q = head.next[.next][n-1]
 
-
+        ref:    https://leetcode.com/problems/remove-nth-node-from-end-of-list/discuss/151107/Python-both-O(n)-and-O(2n)-solutions
         """
         if not head:    return None
         rs = ListNode(None)
@@ -48,7 +48,6 @@ class Solution:
             cur = cur.next
             runner = runner.next
         cur.next = cur.next.next
-
         return rs.next
 
 
