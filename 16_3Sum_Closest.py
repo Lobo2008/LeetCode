@@ -10,7 +10,51 @@ The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 
 """
 class Solution(object):
+
+
+
     def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        """
+        #ref https://leetcode.com/problems/3sum-closest/discuss/7871/Python-O(N2)-solution/8988
+        #[-20, -4, -1, -1, 0, 1, 2, 7, 20] ,target= 15
+
+        先排序，然后固定一个数，然后每次从这个数后面的数开始找，用两个指针
+
+        比如，固定 -4（下标index=1），然后从剩下的元素newnum=[-1, -1, 0, 1, 2, 7, 20] 中开始找
+        两个指针，一个指针指向newnums的最左边，一个指向最右边（还原到nums里的下标就是left=index+1，right=len(nums)-1）
+        然后求三个数的和 sum = index + left + right ,注意，index是固定的，所以内循环每次更新 l 和r即可
+        如果  sum与target的差距（sum-target）小于  上一次的差距  (rs-tagget)，则更新结果
+
+        sum每次和target比较，如果小于target，则左指针右移，反之右指针左移，相等的时候就是结果
+
+        """
+        if len(nums) < 3:return 
+        nums.sort()
+        rs = nums[0] + nums[1] + nums[2]
+        for i in range(len(nums) - 2):
+            l = i + 1
+            r = len(nums) - 1
+            while l < r:
+                tmpsum = nums[i] + nums[l] + nums[r]
+                if tmpsum == target:
+                    return tmpsum
+                if abs(tmpsum - target) < abs(rs - target):
+                    rs = tmpsum
+                if tmpsum < target:
+                    l += 1
+                if tmpsum > target:
+                    r -= 1
+        return rs
+
+
+
+
+    def threeSumClosest_old(self, nums, target):
         """
         :type nums: List[int]
         :type target: int
@@ -174,12 +218,18 @@ class Solution(object):
                 closet = closet2
             i += 1
         return closet+target 
+
+
+
+
         
 so = Solution()
 nums = [-1, 2, 1, -4]; target = 1
 nums = [-20,-4, -1, -1, 0, 1, 2,7,20] ;target = 15
 # nums = [1,1,1,1,1,1,1,1]; target=0
+# print(so.threeSumClosest1(nums, target))
 print(so.threeSumClosest(nums, target))
+
 
 
 
